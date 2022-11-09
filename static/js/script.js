@@ -3,7 +3,7 @@ var counter = 0
 var round = 1
 var optionArray = ['a','b','c','d']
 var correctOption
-
+var time_now
 var dateArray
 var date
 var dateWithHours
@@ -75,7 +75,7 @@ optionArray.forEach(element => {
 
 
 
-
+time_now =performance.now()
 })
 }
 
@@ -87,13 +87,16 @@ function checkCorrectness(){
 
     if (this.id==correctOption){
          this.style.backgroundColor = 'green'
-         counter++
+
          round++
+         counter = counter +((performance.now()-time_now)/1000)
+
          if (round > 5){
-         alert("DONE")
+         alert("Total time elapsed : " + counter + " seconds")
+         return
          }
-         document.getElementById('counter').innerHTML=counter
-         document.getElementById('round').innerHTML=round
+         document.getElementById('counter').innerHTML="Total time elapsed: " +counter
+         document.getElementById('round').innerHTML="Round number: " +round
          populateFields()
 
 //        }
