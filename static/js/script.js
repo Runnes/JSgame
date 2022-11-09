@@ -1,3 +1,26 @@
+
+var counter = 0
+var round = 1
+var optionArray = ['a','b','c','d']
+var correctOption
+
+var dateArray
+var date
+var dateWithHours
+var correctDay
+
+document.addEventListener('DOMContentLoaded',(event)=>{
+document.getElementById('a').addEventListener("click",checkCorrectness)
+document.getElementById('b').addEventListener("click",checkCorrectness)
+document.getElementById('c').addEventListener("click",checkCorrectness)
+document.getElementById('d').addEventListener("click",checkCorrectness)
+
+populateFields()
+
+})
+
+
+
 function randomDate(date1, date2){
     function randomValueBetween(min, max) {
       return Math.random() * (max - min) + min;
@@ -13,14 +36,24 @@ function randomDate(date1, date2){
 
     }
 }
-let date = randomDate('01/01/1970','12/12/2055')
-document.getElementById("mainBox").innerHTML = date
-dateWithHours = new Date(date + " 01:01:01")
-let optionArray = ['a','b','c','d']
-let dateArray =['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-let correctOption = optionArray[Math.floor(Math.random()*optionArray.length)]
 
+function populateFields(){
+
+document.querySelectorAll("button").forEach(element=>element.style.backgroundColor = 'white')
+optionArray = ['a','b','c','d']
+correctOption = optionArray[Math.floor(Math.random()*optionArray.length)]
+
+
+dateArray =['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+date = randomDate('01/01/1970','12/12/2055')
+dateWithHours = new Date(date + " 01:01:01")
 correctDay = dateArray[dateWithHours.getDay()]
+
+document.getElementById("mainBox").innerHTML = date
+
+
+
+
 
 document.getElementById(correctOption).innerHTML = correctDay
 
@@ -30,13 +63,13 @@ dateArray.splice(dayIndex,1)
 optionIndex = optionArray.indexOf(correctOption)
 optionArray.splice(optionIndex,1)
 
-console.log(correctOption,optionArray, correctDay)
+//console.log(correctOption,optionArray, correctDay)
 optionArray.forEach(element => {
     let dayToRemove = dateArray[Math.floor(Math.random()*dateArray.length)]
 
     document.getElementById(element).innerHTML = dayToRemove
 
-    console.log(dayToRemove,dateArray,element,correctOption)
+    //console.log(dayToRemove,dateArray,element,correctOption)
 
     dateArray.splice(dateArray.indexOf(dayToRemove),1)
 
@@ -44,4 +77,33 @@ optionArray.forEach(element => {
 
 
 })
+}
+
+
+
+
+
+function checkCorrectness(){
+
+    if (this.id==correctOption){
+         this.style.backgroundColor = 'green'
+         counter++
+         round++
+         if (round > 5){
+         alert("DONE")
+         }
+         document.getElementById('counter').innerHTML=counter
+         document.getElementById('round').innerHTML=round
+         populateFields()
+
+//        }
+}
+    else
+        this.style.backgroundColor = 'red'
+        console.log(this,correctOption)
+
+
+
+
+}
 
